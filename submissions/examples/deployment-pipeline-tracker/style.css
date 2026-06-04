@@ -1,0 +1,306 @@
+/* ============================================
+   Deployment Pipeline Tracker – style.css
+   CI/CD-inspired deployment stage visualizer.
+   ============================================ */
+
+/* ---- Reset & Page ---- */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #08090d;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dp-preview {
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Card ---- */
+
+.dp-card {
+  width: 100%;
+  max-width: 380px;
+  background: #0f1117;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: dpFadeIn 0.4s ease both;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.dp-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 14px 36px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* ---- Fade-in ---- */
+
+@keyframes dpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Header ---- */
+
+.dp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dp-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e0e2e8;
+  letter-spacing: 0.01em;
+}
+
+/* Overall status badge */
+
+.dp-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.dp-status.success {
+  background: rgba(46, 204, 113, 0.1);
+  color: #2ecc71;
+}
+
+.dp-status.failed {
+  background: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+}
+
+.dp-status.running {
+  background: rgba(91, 138, 255, 0.1);
+  color: #5b8aff;
+}
+
+/* ---- Pipeline ---- */
+
+.dp-pipeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+/* ---- Step ---- */
+
+.dp-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px 0;
+  position: relative;
+}
+
+/* ---- Marker column (icon + connecting line) ---- */
+
+.dp-marker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+/* Connecting line between steps */
+
+.dp-step:not(:last-child) .dp-marker::after {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: calc(100% + 8px);
+  z-index: 0;
+}
+
+/* Line colour per status */
+
+.dp-step.completed .dp-marker::after {
+  background: rgba(46, 204, 113, 0.3);
+}
+
+.dp-step.active .dp-marker::after {
+  background: rgba(91, 138, 255, 0.2);
+}
+
+.dp-step.pending .dp-marker::after {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ---- Icon ---- */
+
+.dp-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Completed */
+
+.dp-step.completed .dp-icon {
+  background: rgba(46, 204, 113, 0.12);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+/* Active */
+
+.dp-step.active .dp-icon {
+  background: rgba(91, 138, 255, 0.12);
+  color: #5b8aff;
+  border: 1px solid rgba(91, 138, 255, 0.3);
+}
+
+/* Pending */
+
+.dp-step.pending .dp-icon {
+  background: rgba(255, 255, 255, 0.04);
+  color: #3a3f4e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Failed */
+
+.dp-step.failed .dp-icon {
+  background: rgba(231, 76, 60, 0.12);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+/* ---- Pulse Animation (active step) ---- */
+
+.dp-icon--pulse {
+  animation: dpPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes dpPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(91, 138, 255, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(91, 138, 255, 0);
+  }
+}
+
+/* ---- Step Content ---- */
+
+.dp-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 4px;
+}
+
+.dp-step-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8a8fa0;
+  transition: color 0.2s ease;
+}
+
+.dp-step.completed .dp-step-title {
+  color: #c8ccd6;
+}
+
+.dp-step.active .dp-step-title {
+  color: #e0e2e8;
+}
+
+.dp-step-desc {
+  font-size: 11px;
+  color: #4a4f5e;
+  letter-spacing: 0.01em;
+}
+
+.dp-step.active .dp-step-desc {
+  color: #6b7080;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 440px) {
+  .dp-card {
+    max-width: 100%;
+    padding: 18px;
+    border-radius: 14px;
+    gap: 18px;
+  }
+
+  .dp-step {
+    gap: 12px;
+    padding: 10px 0;
+  }
+
+  .dp-marker,
+  .dp-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+  }
+
+  .dp-step:not(:last-child) .dp-marker::after {
+    top: 24px;
+  }
+}
+
+/* ---- Accessibility: Reduced Motion ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .dp-card,
+  .dp-card * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

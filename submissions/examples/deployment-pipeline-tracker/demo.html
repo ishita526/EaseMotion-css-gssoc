@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Deployment Pipeline Progress Tracker – a CI/CD-inspired stage visualizer built with EaseMotion CSS.">
+  <title>Deployment Pipeline Tracker | EaseMotion CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="dp-preview">
+    <div class="dp-card">
+
+      <!-- Header -->
+      <div class="dp-header">
+        <h3 class="dp-title">Deployment Pipeline</h3>
+        <span class="dp-status success">Success</span>
+      </div>
+
+      <!-- Pipeline -->
+      <div class="dp-pipeline" role="list" aria-label="Deployment stages">
+
+        <div class="dp-step completed" role="listitem">
+          <div class="dp-marker">
+            <span class="dp-icon" aria-label="Completed">&#10003;</span>
+          </div>
+          <div class="dp-content">
+            <h4 class="dp-step-title">Build</h4>
+            <p class="dp-step-desc">Completed in 24s</p>
+          </div>
+        </div>
+
+        <div class="dp-step completed" role="listitem">
+          <div class="dp-marker">
+            <span class="dp-icon" aria-label="Completed">&#10003;</span>
+          </div>
+          <div class="dp-content">
+            <h4 class="dp-step-title">Tests</h4>
+            <p class="dp-step-desc">All tests passed</p>
+          </div>
+        </div>
+
+        <div class="dp-step active" role="listitem">
+          <div class="dp-marker">
+            <span class="dp-icon dp-icon--pulse" aria-label="In progress">&#9679;</span>
+          </div>
+          <div class="dp-content">
+            <h4 class="dp-step-title">Deploy</h4>
+            <p class="dp-step-desc">Publishing application&hellip;</p>
+          </div>
+        </div>
+
+        <div class="dp-step pending" role="listitem">
+          <div class="dp-marker">
+            <span class="dp-icon" aria-label="Pending">&#9675;</span>
+          </div>
+          <div class="dp-content">
+            <h4 class="dp-step-title">Verification</h4>
+            <p class="dp-step-desc">Waiting&hellip;</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>
