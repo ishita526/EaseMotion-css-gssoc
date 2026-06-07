@@ -1,0 +1,475 @@
+/* ==========================================================================
+   EaseMotion CSS — ease-command-palette Component
+   Developer-focused command palette dialogs, action lists, and shortcut items
+   ========================================================================== */
+
+/* ── Component Variables ─────────────────────────────────────────────────── */
+:root {
+  --cp-z: 1000;
+  --cp-overlay-bg: rgba(15, 23, 42, 0.45);
+  --cp-overlay-blur: 8px;
+  
+  --cp-bg-light: #ffffff;
+  --cp-border-light: #e2e8f0;
+  --cp-text-light: #0f172a;
+  --cp-muted-light: #64748b;
+  --cp-active-light: #f1f5f9;
+  
+  --cp-bg-dark: #121824;
+  --cp-border-dark: #1e293b;
+  --cp-text-dark: #f1f5f9;
+  --cp-muted-dark: #94a3b8;
+  --cp-active-dark: #1e293b;
+
+  --cp-color-primary: #6c63ff;
+  --cp-color-gradient-start: #6c63ff;
+  --cp-color-gradient-end: #ff85a2;
+  
+  --cp-transition-overlay: opacity 250ms ease;
+  --cp-transition-container: transform 250ms cubic-bezier(0.25, 1, 0.5, 1), opacity 250ms ease;
+}
+
+/* ── Backdrop Overlay (Glassmorphism) ────────────────────────────────────── */
+.ease-cp-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--cp-overlay-bg);
+  backdrop-filter: blur(var(--cp-overlay-blur));
+  -webkit-backdrop-filter: blur(var(--cp-overlay-blur));
+  z-index: var(--cp-z);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--cp-transition-overlay);
+}
+
+.ease-cp-overlay.ease-cp--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Dialogue Card Container ─────────────────────────────────────────────── */
+.ease-cp-container {
+  position: relative;
+  background-color: var(--ease-color-surface, var(--cp-bg-light));
+  border: 1px solid var(--ease-color-neutral-200, var(--cp-border-light));
+  border-radius: var(--ease-radius-lg, 1rem);
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--ease-shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.15));
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.96) translateY(-15px);
+  transition: var(--cp-transition-container);
+  z-index: calc(var(--cp-z) + 1);
+}
+
+.ease-cp-overlay.ease-cp--open .ease-cp-container {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* ── Search Input Box Header ─────────────────────────────────────────────── */
+.ease-cp-search-wrap {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--ease-space-6, 1.5rem);
+  border-bottom: 1px solid var(--ease-color-neutral-200, var(--cp-border-light));
+  position: relative;
+}
+
+.ease-cp-search-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ease-color-muted, var(--cp-muted-light));
+  width: 20px;
+  height: 20px;
+}
+
+.ease-cp-search-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.ease-cp-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: var(--ease-color-text, var(--cp-text-light));
+  font-family: var(--ease-font-sans, 'Inter', sans-serif);
+  font-size: var(--ease-text-base, 1rem);
+  padding: var(--ease-space-5, 1.25rem) var(--ease-space-4, 1rem);
+}
+
+.ease-cp-esc-badge {
+  font-family: var(--ease-font-sans, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ease-color-muted, var(--cp-muted-light));
+  border: 1px solid var(--ease-color-neutral-200, var(--cp-border-light));
+  padding: 2px 6px;
+  border-radius: var(--ease-radius-sm, 0.25rem);
+  cursor: pointer;
+  background-color: var(--ease-color-neutral-50, #f8fafc);
+}
+
+/* ── Scrollable Lists Track ──────────────────────────────────────────────── */
+.ease-cp-list {
+  max-height: 330px;
+  overflow-y: auto;
+  padding: var(--ease-space-2, 0.5rem) 0;
+  box-sizing: border-box;
+}
+
+/* Category header dividers */
+.ease-cp-group-title {
+  font-family: var(--ease-font-sans, sans-serif);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ease-color-muted, var(--cp-muted-light));
+  padding: var(--ease-space-3, 0.75rem) var(--ease-space-6, 1.5rem) var(--ease-space-1, 0.25rem);
+}
+
+/* ── Individual List Item ────────────────────────────────────────────────── */
+.ease-cp-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--ease-space-3, 0.75rem) var(--ease-space-6, 1.5rem);
+  cursor: pointer;
+  transition: background-color 150ms ease;
+  text-decoration: none;
+}
+
+/* Left components (icon, labels) */
+.ease-cp-item-left {
+  display: flex;
+  align-items: center;
+  gap: var(--ease-space-4, 1rem);
+  flex-grow: 1;
+}
+
+.ease-cp-item-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--ease-color-muted, var(--cp-muted-light));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ease-cp-item-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.ease-cp-item-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.ease-cp-item-text {
+  font-size: var(--ease-text-sm, 0.875rem);
+  font-weight: 600;
+  color: var(--ease-color-text, var(--cp-text-light));
+}
+
+.ease-cp-item-subtext {
+  font-size: 11px;
+  color: var(--ease-color-muted, var(--cp-muted-light));
+  margin-top: 1px;
+}
+
+/* Right components (kbd shortcuts) */
+.ease-cp-item-shortcut {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: var(--ease-space-4, 1rem);
+}
+
+.ease-cp-item-shortcut kbd {
+  font-family: var(--ease-font-mono, monospace);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--ease-color-muted, var(--cp-muted-light));
+  background-color: var(--ease-color-neutral-100, #f1f5f9);
+  border: 1px solid var(--ease-color-neutral-200, var(--cp-border-light));
+  padding: 2px 5px;
+  border-radius: var(--ease-radius-sm, 0.25rem);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+
+/* Item hover and active navigation states */
+.ease-cp-item:hover,
+.ease-cp-item.active {
+  background-color: var(--ease-color-neutral-100, var(--cp-active-light));
+  outline: none;
+}
+
+.ease-cp-item:hover .ease-cp-item-icon,
+.ease-cp-item.active .ease-cp-item-icon {
+  color: var(--ease-color-primary, var(--cp-color-primary));
+}
+
+.ease-cp-item:hover .ease-cp-item-text,
+.ease-cp-item.active .ease-cp-item-text {
+  color: var(--ease-color-primary, var(--cp-color-primary));
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+.ease-cp-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--ease-space-4, 1rem);
+  padding: var(--ease-space-3, 0.75rem) var(--ease-space-6, 1.5rem);
+  border-top: 1px solid var(--ease-color-neutral-200, var(--cp-border-light));
+  background-color: var(--ease-color-neutral-50, #f8fafc);
+  font-size: 10px;
+  color: var(--ease-color-muted, var(--cp-muted-light));
+}
+
+.ease-cp-footer-hint {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.ease-cp-footer-hint kbd {
+  font-family: var(--ease-font-mono, monospace);
+  background: var(--ease-color-neutral-100, #f1f5f9);
+  border: 1px solid var(--ease-color-neutral-200, var(--cp-border-light));
+  padding: 1px 4px;
+  border-radius: var(--ease-radius-sm, 0.25rem);
+  font-size: 9px;
+  color: var(--ease-color-text, var(--cp-text-light));
+}
+
+/* ==========================================================================
+   Command Palette Theme Variants
+   ========================================================================== */
+
+/* 1. Default Palette (White panel, subtle shadow overlay) */
+
+/* 2. Dark Mode Palette */
+.ease-cp--dark .ease-cp-container {
+  background-color: var(--cp-bg-dark);
+  border-color: var(--cp-border-dark);
+}
+
+.ease-cp--dark .ease-cp-search-wrap,
+.ease-cp--dark .ease-cp-footer {
+  border-color: var(--cp-border-dark);
+}
+
+.ease-cp--dark .ease-cp-footer {
+  background-color: #0b0f17;
+}
+
+.ease-cp--dark .ease-cp-input {
+  color: var(--cp-text-dark);
+}
+
+.ease-cp--dark .ease-cp-group-title,
+.ease-cp--dark .ease-cp-item-subtext,
+.ease-cp--dark .ease-cp-esc-badge,
+.ease-cp--dark .ease-cp-footer,
+.ease-cp--dark .ease-cp-search-icon {
+  color: var(--cp-muted-dark);
+}
+
+.ease-cp--dark .ease-cp-item-text {
+  color: var(--cp-text-dark);
+}
+
+.ease-cp--dark .ease-cp-esc-badge,
+.ease-cp--dark .ease-cp-item-shortcut kbd,
+.ease-cp--dark .ease-cp-footer-hint kbd {
+  background-color: #1a2333;
+  border-color: #2e3c54;
+  color: var(--cp-text-dark);
+}
+
+.ease-cp--dark .ease-cp-item:hover,
+.ease-cp--dark .ease-cp-item.active {
+  background-color: var(--cp-active-dark);
+}
+
+.ease-cp--dark .ease-cp-item:hover .ease-cp-item-text,
+.ease-cp--dark .ease-cp-item.active .ease-cp-item-text,
+.ease-cp--dark .ease-cp-item:hover .ease-cp-item-icon,
+.ease-cp--dark .ease-cp-item.active .ease-cp-item-icon {
+  color: var(--ease-color-primary-light, #a09af8);
+}
+
+/* 3. Light Mode Palette (Explicit clean light theme overrides) */
+.ease-cp--light .ease-cp-container {
+  background-color: #ffffff;
+  border-color: #cbd5e1;
+}
+
+/* 4. Minimal Palette (Borderless flat, minimal spacing) */
+.ease-cp-overlay.ease-cp--minimal {
+  background-color: rgba(15, 23, 42, 0.2);
+}
+
+.ease-cp--minimal .ease-cp-container {
+  border: none;
+  box-shadow: var(--ease-shadow-md, 0 4px 6px -1px rgba(0,0,0,0.05));
+  border-radius: var(--ease-radius-md, 0.5rem);
+}
+
+.ease-cp--minimal .ease-cp-search-wrap,
+.ease-cp--minimal .ease-cp-footer {
+  border: none;
+  background-color: transparent;
+}
+
+.ease-cp--minimal .ease-cp-input {
+  padding-left: 0.5rem;
+}
+
+/* 5. Gradient Accent Palette (Colored gradients border & details) */
+.ease-cp--gradient .ease-cp-container {
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.ease-cp--gradient .ease-cp-container::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: -1;
+  margin: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--cp-color-gradient-start), var(--cp-color-gradient-end));
+}
+
+.ease-cp--gradient .ease-cp-search-wrap {
+  border-bottom: 2px solid transparent;
+}
+
+.ease-cp--gradient .ease-cp-search-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cp-color-gradient-start), var(--cp-color-gradient-end));
+}
+
+.ease-cp--gradient .ease-cp-item:hover,
+.ease-cp--gradient .ease-cp-item.active {
+  background: linear-gradient(90deg, rgba(108, 99, 255, 0.05) 0%, rgba(255, 133, 162, 0.05) 100%), #ffffff;
+}
+
+.ease-cp--gradient .ease-cp-item:hover .ease-cp-item-text,
+.ease-cp--gradient .ease-cp-item.active .ease-cp-item-text,
+.ease-cp--gradient .ease-cp-item:hover .ease-cp-item-icon,
+.ease-cp--gradient .ease-cp-item.active .ease-cp-item-icon {
+  background: linear-gradient(135deg, var(--cp-color-gradient-start), var(--cp-color-gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   Global Dark Theme Preference
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ease-color-surface: var(--cp-bg-dark);
+    --ease-color-text: var(--cp-text-dark);
+    --ease-color-muted: var(--cp-muted-dark);
+    --ease-color-neutral-200: var(--cp-border-dark);
+  }
+
+  .ease-cp-container {
+    background-color: var(--cp-bg-dark);
+    border-color: var(--cp-border-dark);
+  }
+
+  .ease-cp-search-wrap,
+  .ease-cp-footer {
+    border-color: var(--cp-border-dark);
+  }
+
+  .ease-cp-footer {
+    background-color: #0b0f17;
+  }
+
+  .ease-cp-input {
+    color: var(--cp-text-dark);
+  }
+
+  .ease-cp-group-title,
+  .ease-cp-item-subtext,
+  .ease-cp-esc-badge,
+  .ease-cp-footer,
+  .ease-cp-search-icon {
+    color: var(--cp-muted-dark);
+  }
+
+  .ease-cp-item-text {
+    color: var(--cp-text-dark);
+  }
+
+  .ease-cp-esc-badge,
+  .ease-cp-item-shortcut kbd,
+  .ease-cp-footer-hint kbd {
+    background-color: #1a2333;
+    border-color: #2e3c54;
+    color: var(--cp-text-dark);
+  }
+
+  .ease-cp-item:hover,
+  .ease-cp-item.active {
+    background-color: var(--cp-active-dark);
+  }
+
+  .ease-cp-item:hover .ease-cp-item-text,
+  .ease-cp-item.active .ease-cp-item-text,
+  .ease-cp-item:hover .ease-cp-item-icon,
+  .ease-cp-item.active .ease-cp-item-icon {
+    color: var(--ease-color-primary-light, #a09af8);
+  }
+
+  .ease-cp--minimal .ease-cp-container {
+    border-color: var(--cp-border-dark);
+  }
+
+  .ease-cp--gradient .ease-cp-item:hover,
+  .ease-cp--gradient .ease-cp-item.active {
+    background: linear-gradient(90deg, rgba(108, 99, 255, 0.05) 0%, rgba(255, 133, 162, 0.05) 100%), var(--cp-bg-dark);
+  }
+}
+
+/* ── Reduced Motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ease-cp-overlay,
+  .ease-cp-container {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ease Command Palette Showcase — EaseMotion CSS</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Link component styles -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* Demo Page Shell Styling */
+    :root {
+      --demo-bg: #f8fafc;
+      --demo-text: #0f172a;
+      --demo-card-bg: #ffffff;
+      --demo-border: #e2e8f0;
+      --demo-primary: #6c63ff;
+      --demo-primary-dark: #4b44cc;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --demo-bg: #090d16;
+        --demo-text: #f1f5f9;
+        --demo-card-bg: #121824;
+        --demo-border: #1e293b;
+      }
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--demo-bg);
+      color: var(--demo-text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+    
+    .demo-navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background-color: var(--demo-card-bg);
+      border-bottom: 1px solid var(--demo-border);
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      .demo-navbar {
+        background-color: rgba(18, 24, 36, 0.8);
+      }
+    }
+    
+    .demo-logo {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      background: linear-gradient(135deg, #6c63ff, #ff85a2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .demo-badge {
+      background: rgba(108, 99, 255, 0.1);
+      color: #6c63ff;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    
+    .demo-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .demo-header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.75rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    
+    .demo-header p {
+      color: #64748b;
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      .demo-header p {
+        color: #94a3b8;
+      }
+    }
+
+    .demo-shortcut-tip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: var(--demo-card-bg);
+      border: 1px solid var(--demo-border);
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+
+    .demo-shortcut-tip kbd {
+      font-family: 'JetBrains Mono', monospace;
+      background-color: var(--demo-bg);
+      border: 1px solid var(--demo-border);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+    
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      margin-top: 3rem;
+    }
+    
+    .demo-btn {
+      display: block;
+      padding: 1rem;
+      background-color: var(--demo-card-bg);
+      color: var(--demo-text);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: 1px solid var(--demo-border);
+      border-radius: 0.75rem;
+      cursor: pointer;
+      text-align: center;
+      transition: background-color 200ms ease, border-color 200ms ease, transform 150ms ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    
+    .demo-btn:hover {
+      background-color: var(--demo-border);
+      transform: translateY(-2px);
+    }
+    
+    .demo-btn:active {
+      transform: scale(0.98);
+    }
+
+    .demo-btn--primary {
+      background-color: var(--demo-primary);
+      color: #ffffff;
+      border-color: var(--demo-primary);
+    }
+
+    .demo-btn--primary:hover {
+      background-color: var(--demo-primary-dark);
+      border-color: var(--demo-primary-dark);
+    }
+    
+    .demo-footer {
+      text-align: center;
+      margin-top: 6rem;
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+    
+    /* Interactive notification bubble */
+    .demo-notif {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: #0f172a;
+      color: #ffffff;
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+      z-index: 2000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 300ms cubic-bezier(0.25, 1, 0.5, 1);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .demo-notif.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Demo Navigation -->
+  <nav class="demo-navbar">
+    <div class="demo-logo">
+      EaseMotion CSS <span class="demo-badge">Command Palette</span>
+    </div>
+    <div>
+      <a href="https://github.com/SAPTARSHI-coder/EaseMotion-css" style="color: inherit; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Github Repo</a>
+    </div>
+  </nav>
+
+  <!-- Content Container -->
+  <div class="demo-container">
+    
+    <div class="demo-header">
+      <h1>Developer Command Console</h1>
+      <p>Quick access to navigation links, shortcut triggers, search algorithms, and settings panels. Highly optimized for keyboard navigation.</p>
+      
+      <div class="demo-shortcut-tip">
+        <span>Press</span> <kbd>Ctrl</kbd> + <kbd>K</kbd> <span>or Click triggers to Open</span>
+      </div>
+    </div>
+
+    <!-- Theme Triggers -->
+    <div class="demo-grid">
+      <button class="demo-btn demo-btn--primary" onclick="openCP('')">Open Default Palette</button>
+      <button class="demo-btn" onclick="openCP('ease-cp--dark')">Open Dark Theme</button>
+      <button class="demo-btn" onclick="openCP('ease-cp--light')">Open Light Theme</button>
+      <button class="demo-btn" onclick="openCP('ease-cp--minimal')">Open Minimal Theme</button>
+      <button class="demo-btn" onclick="openCP('ease-cp--gradient')">Open Gradient Theme</button>
+    </div>
+
+    <div class="demo-footer">
+      <p>Submitted under EaseMotion CSS project requirements. No external frameworks used.</p>
+    </div>
+  </div>
+
+  <!-- Action Notification Toast -->
+  <div class="demo-notif" id="demo-notification">
+    <svg style="width: 18px; height: 18px; stroke: #22c55e; fill: none; stroke-width: 2.5;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <span id="notif-text">Executing Action...</span>
+  </div>
+
+  <!-- ==========================================================================
+       COMMAND PALETTE DIALOG MARKUP
+       ========================================================================== -->
+  <div class="ease-cp-overlay" id="command-palette">
+    <div class="ease-cp-container">
+      
+      <!-- Search Input Header -->
+      <div class="ease-cp-search-wrap">
+        <div class="ease-cp-search-icon">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+        <input type="text" class="ease-cp-input" placeholder="Type a command or search files..." id="cp-search-input" autocomplete="off" autofocus>
+        <span class="ease-cp-esc-badge" onclick="closeCP()">esc</span>
+      </div>
+
+      <!-- Scrollable Commands Listing -->
+      <div class="ease-cp-list" id="cp-commands-list">
+        
+        <!-- Section 1: Navigation Commands -->
+        <div class="ease-cp-group-title">Navigation</div>
+        
+        <div class="ease-cp-item active" data-action="Navigating to Dashboard">
+          <div class="ease-cp-item-left">
+            <span class="ease-cp-item-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+            </span>
+            <div class="ease-cp-item-meta">
+              <span class="ease-cp-item-text">Go to Dashboard</span>
+              <span class="ease-cp-item-subtext">Open main system admin dashboard overview</span>
+            </div>
+          </div>
+          <div class="ease-cp-item-shortcut">
+            <kbd>g</kbd> <kbd>d</kbd>
+          </div>
+        </div>
+
+        <div class="ease-cp-item" data-action="Navigating to Settings">
+          <div class="ease-cp-item-left">
+            <span class="ease-cp-item-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </span>
+            <div class="ease-cp-item-meta">
+              <span class="ease-cp-item-text">Go to System Settings</span>
+              <span class="ease-cp-item-subtext">Configure user profiles, notification alerts, and API tokens</span>
+            </div>
+          </div>
+          <div class="ease-cp-item-shortcut">
+            <kbd>g</kbd> <kbd>s</kbd>
+          </div>
+        </div>
+
+        <div class="ease-cp-item" data-action="Opening Documentation guides">
+          <div class="ease-cp-item-left">
+            <span class="ease-cp-item-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            </span>
+            <div class="ease-cp-item-meta">
+              <span class="ease-cp-item-text">Open API Documentation</span>
+              <span class="ease-cp-item-subtext">Explore layout utility functions and framework design vision maps</span>
+            </div>
+          </div>
+          <div class="ease-cp-item-shortcut">
+            <kbd>g</kbd> <kbd>h</kbd>
+          </div>
+        </div>
+
+        <!-- Section 2: Action Commands -->
+        <div class="ease-cp-group-title">Repository Actions</div>
+        
+        <div class="ease-cp-item" data-action="Creating New Repository">
+          <div class="ease-cp-item-left">
+            <span class="ease-cp-item-icon">
+              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </span>
+            <div class="ease-cp-item-meta">
+              <span class="ease-cp-item-text">Create New Project Repository</span>
+              <span class="ease-cp-item-subtext">Initialize a clean folder structure and empty git index</span>
+            </div>
+          </div>
+          <div class="ease-cp-item-shortcut">
+            <kbd>Ctrl</kbd> + <kbd>N</kbd>
+          </div>
+        </div>
+
+        <div class="ease-cp-item" data-action="Staging Modified Files">
+          <div class="ease-cp-item-left">
+            <span class="ease-cp-item-icon">
+              <svg viewBox="0 0 24 24"><polyline points="22 11.08 22 12 17 12 17 9 12 9 12 15 9 15 9 18 2 18 2 6 22 6"></polyline></svg>
+            </span>
+            <div class="ease-cp-item-meta">
+              <span class="ease-cp-item-text">Git Add (Stage Changes)</span>
+              <span class="ease-cp-item-subtext">Stage current local folder changes for commit tracking</span>
+            </div>
+          </div>
+          <div class="ease-cp-item-shortcut">
+            <kbd>Ctrl</kbd> + <kbd>A</kbd>
+          </div>
+        </div>
+
+        <div class="ease-cp-item" data-action="Deleting Local Caches">
+          <div class="ease-cp-item-left">
+            <span class="ease-cp-item-icon">
+              <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+            </span>
+            <div class="ease-cp-item-meta">
+              <span class="ease-cp-item-text">Delete Temp Caches</span>
+              <span class="ease-cp-item-subtext">Erase workspace temporary caches and build folders</span>
+            </div>
+          </div>
+          <div class="ease-cp-item-shortcut">
+            <kbd>Shift</kbd> + <kbd>Del</kbd>
+          </div>
+        </div>
+
+        <!-- Section 3: Preference Settings -->
+        <div class="ease-cp-group-title">Preferences</div>
+        
+        <div class="ease-cp-item" data-action="Toggling Workspace Themes">
+          <div class="ease-cp-item-left">
+            <span class="ease-cp-item-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </span>
+            <div class="ease-cp-item-meta">
+              <span class="ease-cp-item-text">Toggle Ambient Theme</span>
+              <span class="ease-cp-item-subtext">Switch visual background between Light and Dark workspaces</span>
+            </div>
+          </div>
+          <div class="ease-cp-item-shortcut">
+            <kbd>Ctrl</kbd> + <kbd>T</kbd>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Command Palette Footer Navigation Info -->
+      <div class="ease-cp-footer">
+        <span class="ease-cp-footer-hint"><kbd>↑↓</kbd> to navigate</span>
+        <span class="ease-cp-footer-hint"><kbd>↵</kbd> to select</span>
+        <span class="ease-cp-footer-hint"><kbd>esc</kbd> to dismiss</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       VANILLA JAVASCRIPT EVENT CONTROLLERS
+       ========================================================================== -->
+  <script>
+    const palette = document.getElementById('command-palette');
+    const input = document.getElementById('cp-search-input');
+    const list = document.getElementById('cp-commands-list');
+    const items = Array.from(list.querySelectorAll('.ease-cp-item'));
+    const toast = document.getElementById('demo-notification');
+    const toastText = document.getElementById('notif-text');
+    
+    let activeIndex = 0;
+    let visibleItems = [...items];
+
+    // Open palette with specific theme modifier
+    function openCP(themeClass = '') {
+      // Clear previous classes
+      palette.className = 'ease-cp-overlay';
+      if (themeClass) {
+        palette.classList.add(themeClass);
+      }
+      
+      palette.classList.add('ease-cp--open');
+      document.body.style.overflow = 'hidden';
+      
+      // Auto focus search input
+      setTimeout(() => {
+        input.value = '';
+        filterCommands('');
+        input.focus();
+      }, 100);
+    }
+
+    // Close palette
+    function closeCP() {
+      palette.classList.remove('ease-cp--open');
+      document.body.style.overflow = '';
+      input.blur();
+    }
+
+    // Toggle palette
+    function toggleCP() {
+      if (palette.classList.contains('ease-cp--open')) {
+        closeCP();
+      } else {
+        openCP();
+      }
+    }
+
+    // Filter list items based on query
+    function filterCommands(query) {
+      const q = query.toLowerCase().trim();
+      
+      items.forEach(item => {
+        const title = item.querySelector('.ease-cp-item-text').innerText.toLowerCase();
+        const sub = item.querySelector('.ease-cp-item-subtext').innerText.toLowerCase();
+        
+        if (title.includes(q) || sub.includes(q)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Filter visible items list
+      visibleItems = items.filter(item => item.style.display !== 'none');
+      
+      // Update active selection index
+      if (visibleItems.length > 0) {
+        activeIndex = 0;
+        updateActiveHighlight();
+      }
+      
+      // Hide empty category titles
+      const titles = Array.from(list.querySelectorAll('.ease-cp-group-title'));
+      titles.forEach(title => {
+        let sibling = title.nextElementSibling;
+        let hasVisibleItems = false;
+        
+        while (sibling && !sibling.classList.contains('ease-cp-group-title')) {
+          if (sibling.style.display !== 'none') {
+            hasVisibleItems = true;
+            break;
+          }
+          sibling = sibling.nextElementSibling;
+        }
+        
+        title.style.display = hasVisibleItems ? 'block' : 'none';
+      });
+    }
+
+    // Highlight active selection
+    function updateActiveHighlight() {
+      items.forEach(item => item.classList.remove('active'));
+      
+      if (visibleItems.length > 0 && activeIndex < visibleItems.length) {
+        const activeItem = visibleItems[activeIndex];
+        activeItem.classList.add('active');
+        
+        // Scroll active item into view
+        activeItem.scrollIntoView({ block: 'nearest' });
+      }
+    }
+
+    // Execute active command action
+    function executeActiveCommand() {
+      if (visibleItems.length > 0 && activeIndex < visibleItems.length) {
+        const activeItem = visibleItems[activeIndex];
+        const actionText = activeItem.getAttribute('data-action') || 'Fired Command';
+        
+        closeCP();
+        
+        // Trigger Toast Notification
+        toastText.innerText = `Success: ${actionText}!`;
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      }
+    }
+
+    // Search query keypress hook
+    input.addEventListener('input', (e) => {
+      filterCommands(e.target.value);
+    });
+
+    // Keyboard controls (Esc, Ctrl+K, Arrows, Enter)
+    document.addEventListener('keydown', (e) => {
+      // Toggle palette: Ctrl+K or Cmd+K
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        toggleCP();
+      }
+      
+      // If palette is closed, skip navigation hooks
+      if (!palette.classList.contains('ease-cp--open')) return;
+
+      if (e.key === 'Escape') {
+        closeCP();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (visibleItems.length > 0) {
+          activeIndex = (activeIndex + 1) % visibleItems.length;
+          updateActiveHighlight();
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (visibleItems.length > 0) {
+          activeIndex = (activeIndex - 1 + visibleItems.length) % visibleItems.length;
+          updateActiveHighlight();
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        executeActiveCommand();
+      }
+    });
+
+    // Handle single item click
+    items.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        // Read index of item in the visible items list
+        const visIdx = visibleItems.indexOf(item);
+        if (visIdx !== -1) {
+          activeIndex = visIdx;
+        }
+        executeActiveCommand();
+      });
+    });
+
+    // Close on overlay backdrop click
+    palette.addEventListener('click', (e) => {
+      if (e.target === palette) {
+        closeCP();
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,806 @@
+/* ==========================================================================
+   EaseMotion CSS — ease-sidebar Component
+   Modern sidebar navigation for dashboards, admin panels & web applications
+   ========================================================================== */
+
+/* ── Component Variables ─────────────────────────────────────────────────── */
+:root {
+  --sb-z: 900;
+  --sb-width: 260px;
+  --sb-width-collapsed: 72px;
+  --sb-transition: 300ms cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* Light theme (default) */
+  --sb-bg: #ffffff;
+  --sb-border: #e8ecf1;
+  --sb-text: #1e293b;
+  --sb-text-muted: #64748b;
+  --sb-item-hover: #f1f5f9;
+  --sb-item-active-bg: rgba(108, 99, 255, 0.08);
+  --sb-item-active-text: #6c63ff;
+  --sb-item-active-indicator: #6c63ff;
+  --sb-divider: #e2e8f0;
+  --sb-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --sb-shadow-float: 0 20px 40px -12px rgba(0, 0, 0, 0.12), 0 8px 20px -8px rgba(0, 0, 0, 0.08);
+  --sb-radius: 0.75rem;
+  --sb-radius-item: 0.5rem;
+  --sb-profile-bg: #f8fafc;
+
+  /* Primary palette */
+  --sb-primary: #6c63ff;
+  --sb-primary-light: #a09af8;
+  --sb-gradient-start: #6c63ff;
+  --sb-gradient-end: #ff85a2;
+
+  /* Dark palette */
+  --sb-dark-bg: #0f1420;
+  --sb-dark-border: #1e293b;
+  --sb-dark-text: #e2e8f0;
+  --sb-dark-text-muted: #94a3b8;
+  --sb-dark-item-hover: #1a2332;
+  --sb-dark-item-active-bg: rgba(108, 99, 255, 0.12);
+  --sb-dark-profile-bg: #0b0f18;
+
+  /* Mobile */
+  --sb-overlay-bg: rgba(15, 23, 42, 0.45);
+  --sb-overlay-blur: 6px;
+}
+
+/* ── Base Sidebar ────────────────────────────────────────────────────────── */
+.ease-sb {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: var(--sb-width);
+  min-height: 100vh;
+  background-color: var(--sb-bg);
+  border-right: 1px solid var(--sb-border);
+  box-shadow: var(--sb-shadow);
+  transition: width var(--sb-transition), background-color var(--sb-transition),
+    box-shadow var(--sb-transition), transform var(--sb-transition);
+  overflow: hidden;
+  z-index: var(--sb-z);
+  flex-shrink: 0;
+}
+
+/* ── Sidebar Header / Brand ─────────────────────────────────────────────── */
+.ease-sb-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1.25rem 1rem;
+  min-height: 56px;
+  transition: padding var(--sb-transition), opacity var(--sb-transition);
+}
+
+.ease-sb-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 0.625rem;
+  background: linear-gradient(135deg, var(--sb-gradient-start), var(--sb-gradient-end));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(108, 99, 255, 0.2);
+}
+
+.ease-sb-logo svg {
+  width: 20px;
+  height: 20px;
+  stroke: #ffffff;
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.ease-sb-brand {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: opacity var(--sb-transition), width var(--sb-transition);
+}
+
+.ease-sb-brand-name {
+  font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--sb-text);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.ease-sb-brand-tag {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--sb-text-muted);
+  letter-spacing: 0.01em;
+}
+
+/* ── Profile Section ────────────────────────────────────────────────────── */
+.ease-sb-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0.75rem;
+  padding: 0.75rem;
+  background-color: var(--sb-profile-bg);
+  border-radius: var(--sb-radius);
+  transition: background-color var(--sb-transition), padding var(--sb-transition);
+}
+
+.ease-sb-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6c63ff 0%, #a78bfa 50%, #ff85a2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #ffffff;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(108, 99, 255, 0.18);
+}
+
+.ease-sb-profile-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: opacity var(--sb-transition), width var(--sb-transition);
+}
+
+.ease-sb-profile-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--sb-text);
+  line-height: 1.3;
+}
+
+.ease-sb-profile-role {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--sb-text-muted);
+}
+
+/* ── Navigation Section ─────────────────────────────────────────────────── */
+.ease-sb-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.75rem;
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ease-sb-section-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sb-text-muted);
+  padding: 1rem 0.75rem 0.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: opacity var(--sb-transition);
+}
+
+/* ── Navigation Item ────────────────────────────────────────────────────── */
+.ease-sb-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--sb-radius-item);
+  color: var(--sb-text);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 200ms ease, color 200ms ease, padding 200ms ease;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ease-sb-item:hover {
+  background-color: var(--sb-item-hover);
+  color: var(--sb-text);
+}
+
+/* Active state */
+.ease-sb-item.active {
+  background-color: var(--sb-item-active-bg);
+  color: var(--sb-item-active-text);
+  font-weight: 600;
+}
+
+/* Active indicator bar */
+.ease-sb-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background-color: var(--sb-item-active-indicator);
+  border-radius: 0 4px 4px 0;
+  transition: height 200ms ease;
+}
+
+/* Item icon */
+.ease-sb-item-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--sb-text-muted);
+  transition: color 200ms ease;
+}
+
+.ease-sb-item-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.ease-sb-item:hover .ease-sb-item-icon,
+.ease-sb-item.active .ease-sb-item-icon {
+  color: var(--sb-item-active-text);
+}
+
+/* Item label */
+.ease-sb-item-label {
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity var(--sb-transition), width var(--sb-transition);
+}
+
+/* Item badge */
+.ease-sb-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+  border-radius: 9999px;
+  background-color: var(--sb-primary);
+  color: #ffffff;
+  line-height: 1.4;
+  flex-shrink: 0;
+  transition: opacity var(--sb-transition), transform var(--sb-transition);
+}
+
+/* ── Divider ────────────────────────────────────────────────────────────── */
+.ease-sb-divider {
+  height: 1px;
+  background-color: var(--sb-divider);
+  margin: 0.5rem 0.75rem;
+  border: none;
+  transition: margin var(--sb-transition);
+}
+
+/* ── Sidebar Footer ─────────────────────────────────────────────────────── */
+.ease-sb-footer {
+  padding: 0.75rem;
+  border-top: 1px solid var(--sb-border);
+  margin-top: auto;
+}
+
+/* ── Collapse Toggle Button ─────────────────────────────────────────────── */
+.ease-sb-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--sb-border);
+  border-radius: 0.5rem;
+  background-color: var(--sb-bg);
+  color: var(--sb-text-muted);
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, transform var(--sb-transition);
+  position: absolute;
+  top: 1.5rem;
+  right: -16px;
+  z-index: calc(var(--sb-z) + 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.ease-sb-toggle svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  fill: none;
+  transition: transform var(--sb-transition);
+}
+
+.ease-sb-toggle:hover {
+  background-color: var(--sb-item-hover);
+  color: var(--sb-primary);
+}
+
+/* ==========================================================================
+   VARIANT 1 — Collapsible Sidebar
+   ========================================================================== */
+.ease-sb.ease-sb--collapsed {
+  width: var(--sb-width-collapsed);
+}
+
+.ease-sb.ease-sb--collapsed .ease-sb-brand,
+.ease-sb.ease-sb--collapsed .ease-sb-profile-info,
+.ease-sb.ease-sb--collapsed .ease-sb-item-label,
+.ease-sb.ease-sb--collapsed .ease-sb-badge,
+.ease-sb.ease-sb--collapsed .ease-sb-section-title {
+  opacity: 0;
+  width: 0;
+  pointer-events: none;
+}
+
+.ease-sb.ease-sb--collapsed .ease-sb-header {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.ease-sb.ease-sb--collapsed .ease-sb-profile {
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.ease-sb.ease-sb--collapsed .ease-sb-item {
+  justify-content: center;
+  padding: 0.7rem;
+}
+
+.ease-sb.ease-sb--collapsed .ease-sb-item.active::before {
+  display: none;
+}
+
+.ease-sb.ease-sb--collapsed .ease-sb-toggle svg {
+  transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   VARIANT 2 — Icon-Only Sidebar
+   ========================================================================== */
+.ease-sb.ease-sb--icon-only {
+  width: var(--sb-width-collapsed);
+}
+
+.ease-sb.ease-sb--icon-only .ease-sb-brand,
+.ease-sb.ease-sb--icon-only .ease-sb-profile-info,
+.ease-sb.ease-sb--icon-only .ease-sb-item-label,
+.ease-sb.ease-sb--icon-only .ease-sb-badge,
+.ease-sb.ease-sb--icon-only .ease-sb-section-title {
+  display: none;
+}
+
+.ease-sb.ease-sb--icon-only .ease-sb-header,
+.ease-sb.ease-sb--icon-only .ease-sb-profile {
+  justify-content: center;
+}
+
+.ease-sb.ease-sb--icon-only .ease-sb-item {
+  justify-content: center;
+  padding: 0.75rem;
+}
+
+.ease-sb.ease-sb--icon-only .ease-sb-item.active::before {
+  display: none;
+}
+
+.ease-sb.ease-sb--icon-only .ease-sb-item.active {
+  background-color: var(--sb-item-active-bg);
+  border-radius: var(--sb-radius-item);
+}
+
+/* Icon-only tooltip on hover */
+.ease-sb.ease-sb--icon-only .ease-sb-item {
+  position: relative;
+}
+
+.ease-sb.ease-sb--icon-only .ease-sb-item::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #1e293b;
+  color: #f1f5f9;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.375rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms ease;
+  transform: translateY(-50%) translateX(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: calc(var(--sb-z) + 10);
+}
+
+.ease-sb.ease-sb--icon-only .ease-sb-item:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ==========================================================================
+   VARIANT 3 — Dark Sidebar
+   ========================================================================== */
+.ease-sb.ease-sb--dark {
+  background-color: var(--sb-dark-bg);
+  border-right-color: var(--sb-dark-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.ease-sb.ease-sb--dark .ease-sb-brand-name,
+.ease-sb.ease-sb--dark .ease-sb-profile-name {
+  color: var(--sb-dark-text);
+}
+
+.ease-sb.ease-sb--dark .ease-sb-brand-tag,
+.ease-sb.ease-sb--dark .ease-sb-profile-role,
+.ease-sb.ease-sb--dark .ease-sb-section-title,
+.ease-sb.ease-sb--dark .ease-sb-item-icon {
+  color: var(--sb-dark-text-muted);
+}
+
+.ease-sb.ease-sb--dark .ease-sb-item {
+  color: var(--sb-dark-text);
+}
+
+.ease-sb.ease-sb--dark .ease-sb-item:hover {
+  background-color: var(--sb-dark-item-hover);
+  color: var(--sb-dark-text);
+}
+
+.ease-sb.ease-sb--dark .ease-sb-item.active {
+  background-color: var(--sb-dark-item-active-bg);
+  color: var(--sb-primary-light);
+}
+
+.ease-sb.ease-sb--dark .ease-sb-item.active .ease-sb-item-icon,
+.ease-sb.ease-sb--dark .ease-sb-item:hover .ease-sb-item-icon {
+  color: var(--sb-primary-light);
+}
+
+.ease-sb.ease-sb--dark .ease-sb-item.active::before {
+  background-color: var(--sb-primary-light);
+}
+
+.ease-sb.ease-sb--dark .ease-sb-profile {
+  background-color: var(--sb-dark-profile-bg);
+}
+
+.ease-sb.ease-sb--dark .ease-sb-divider {
+  background-color: var(--sb-dark-border);
+}
+
+.ease-sb.ease-sb--dark .ease-sb-footer {
+  border-top-color: var(--sb-dark-border);
+}
+
+.ease-sb.ease-sb--dark .ease-sb-toggle {
+  background-color: var(--sb-dark-bg);
+  border-color: var(--sb-dark-border);
+  color: var(--sb-dark-text-muted);
+}
+
+.ease-sb.ease-sb--dark .ease-sb-toggle:hover {
+  background-color: var(--sb-dark-item-hover);
+  color: var(--sb-primary-light);
+}
+
+.ease-sb.ease-sb--dark .ease-sb-badge {
+  background-color: var(--sb-primary-light);
+}
+
+/* ==========================================================================
+   VARIANT 4 — Light Sidebar (explicit)
+   ========================================================================== */
+.ease-sb.ease-sb--light {
+  background-color: #fefefe;
+  border-right: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.ease-sb.ease-sb--light .ease-sb-item:hover {
+  background-color: #f3f4f6;
+}
+
+.ease-sb.ease-sb--light .ease-sb-profile {
+  background-color: #f9fafb;
+}
+
+/* ==========================================================================
+   VARIANT 5 — Gradient Sidebar
+   ========================================================================== */
+.ease-sb.ease-sb--gradient {
+  background: linear-gradient(180deg, #1a1040 0%, #2d1b69 40%, #3b1f8e 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(45, 27, 105, 0.25);
+}
+
+.ease-sb.ease-sb--gradient .ease-sb-brand-name,
+.ease-sb.ease-sb--gradient .ease-sb-profile-name {
+  color: #ffffff;
+}
+
+.ease-sb.ease-sb--gradient .ease-sb-brand-tag,
+.ease-sb.ease-sb--gradient .ease-sb-profile-role,
+.ease-sb.ease-sb--gradient .ease-sb-section-title {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ease-sb.ease-sb--gradient .ease-sb-item {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.ease-sb.ease-sb--gradient .ease-sb-item-icon {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.ease-sb.ease-sb--gradient .ease-sb-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.ease-sb.ease-sb--gradient .ease-sb-item:hover .ease-sb-item-icon {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.ease-sb.ease-sb--gradient .ease-sb-item.active {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.ease-sb.ease-sb--gradient .ease-sb-item.active .ease-sb-item-icon {
+  color: #ffffff;
+}
+
+.ease-sb.ease-sb--gradient .ease-sb-item.active::before {
+  background: linear-gradient(180deg, var(--sb-gradient-start), var(--sb-gradient-end));
+}
+
+.ease-sb.ease-sb--gradient .ease-sb-profile {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.ease-sb.ease-sb--gradient .ease-sb-divider {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.ease-sb.ease-sb--gradient .ease-sb-footer {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.ease-sb.ease-sb--gradient .ease-sb-badge {
+  background: linear-gradient(135deg, #ff85a2, #ff6b8a);
+}
+
+/* ==========================================================================
+   VARIANT 6 — Glassmorphism Sidebar
+   ========================================================================== */
+.ease-sb.ease-sb--glass {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.ease-sb.ease-sb--glass .ease-sb-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.ease-sb.ease-sb--glass .ease-sb-item.active {
+  background-color: rgba(108, 99, 255, 0.12);
+}
+
+.ease-sb.ease-sb--glass .ease-sb-profile {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.ease-sb.ease-sb--glass .ease-sb-divider {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.ease-sb.ease-sb--glass .ease-sb-footer {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ==========================================================================
+   VARIANT 7 — Fixed Sidebar
+   ========================================================================== */
+.ease-sb.ease-sb--fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: var(--sb-z);
+}
+
+/* ==========================================================================
+   VARIANT 8 — Floating Sidebar
+   ========================================================================== */
+.ease-sb.ease-sb--floating {
+  margin: 0.75rem;
+  border-radius: var(--sb-radius);
+  border: 1px solid var(--sb-border);
+  height: calc(100vh - 1.5rem);
+  box-shadow: var(--sb-shadow-float);
+}
+
+.ease-sb.ease-sb--floating.ease-sb--fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* ==========================================================================
+   VARIANT 9 — Mobile Off-Canvas Sidebar
+   ========================================================================== */
+.ease-sb-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: var(--sb-overlay-bg);
+  backdrop-filter: blur(var(--sb-overlay-blur));
+  -webkit-backdrop-filter: blur(var(--sb-overlay-blur));
+  z-index: calc(var(--sb-z) - 1);
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.ease-sb-overlay.ease-sb-overlay--open {
+  display: block;
+  opacity: 1;
+}
+
+.ease-sb.ease-sb--offcanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  transform: translateX(-100%);
+  z-index: var(--sb-z);
+  box-shadow: var(--sb-shadow-float);
+}
+
+.ease-sb.ease-sb--offcanvas.ease-sb--open {
+  transform: translateX(0);
+}
+
+/* Mobile hamburger toggle */
+.ease-sb-mobile-toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--sb-border);
+  border-radius: 0.625rem;
+  background-color: var(--sb-bg);
+  color: var(--sb-text);
+  cursor: pointer;
+  z-index: calc(var(--sb-z) + 2);
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background-color 200ms ease, transform 200ms ease;
+}
+
+.ease-sb-mobile-toggle svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.ease-sb-mobile-toggle:hover {
+  background-color: var(--sb-item-hover);
+}
+
+.ease-sb-mobile-toggle:active {
+  transform: scale(0.94);
+}
+
+/* ── Responsive (mobile breakpoint) ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .ease-sb-mobile-toggle {
+    display: flex;
+  }
+
+  .ease-sb:not(.ease-sb--offcanvas) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    box-shadow: var(--sb-shadow-float);
+  }
+
+  .ease-sb:not(.ease-sb--offcanvas).ease-sb--open {
+    transform: translateX(0);
+  }
+}
+
+/* ==========================================================================
+   Global Dark Theme Preference — Auto fallback
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  .ease-sb:not([class*="ease-sb--dark"]):not([class*="ease-sb--gradient"]):not([class*="ease-sb--glass"]):not([class*="ease-sb--light"]) {
+    background-color: var(--sb-dark-bg);
+    border-right-color: var(--sb-dark-border);
+  }
+
+  .ease-sb:not([class*="ease-sb--dark"]):not([class*="ease-sb--gradient"]):not([class*="ease-sb--glass"]):not([class*="ease-sb--light"]) .ease-sb-brand-name,
+  .ease-sb:not([class*="ease-sb--dark"]):not([class*="ease-sb--gradient"]):not([class*="ease-sb--glass"]):not([class*="ease-sb--light"]) .ease-sb-profile-name {
+    color: var(--sb-dark-text);
+  }
+
+  .ease-sb:not([class*="ease-sb--dark"]):not([class*="ease-sb--gradient"]):not([class*="ease-sb--glass"]):not([class*="ease-sb--light"]) .ease-sb-brand-tag,
+  .ease-sb:not([class*="ease-sb--dark"]):not([class*="ease-sb--gradient"]):not([class*="ease-sb--glass"]):not([class*="ease-sb--light"]) .ease-sb-profile-role,
+  .ease-sb:not([class*="ease-sb--dark"]):not([class*="ease-sb--gradient"]):not([class*="ease-sb--glass"]):not([class*="ease-sb--light"]) .ease-sb-section-title {
+    color: var(--sb-dark-text-muted);
+  }
+
+  .ease-sb:not([class*="ease-sb--dark"]):not([class*="ease-sb--gradient"]):not([class*="ease-sb--glass"]):not([class*="ease-sb--light"]) .ease-sb-item {
+    color: var(--sb-dark-text);
+  }
+
+  .ease-sb:not([class*="ease-sb--dark"]):not([class*="ease-sb--gradient"]):not([class*="ease-sb--glass"]):not([class*="ease-sb--light"]) .ease-sb-item-icon {
+    color: var(--sb-dark-text-muted);
+  }
+
+  .ease-sb:not([class*="ease-sb--dark"]):not([class*="ease-sb--gradient"]):not([class*="ease-sb--glass"]):not([class*="ease-sb--light"]) .ease-sb-item:hover {
+    background-color: var(--sb-dark-item-hover);
+  }
+
+  .ease-sb:not([class*="ease-sb--dark"]):not([class*="ease-sb--gradient"]):not([class*="ease-sb--glass"]):not([class*="ease-sb--light"]) .ease-sb-item.active {
+    background-color: var(--sb-dark-item-active-bg);
+    color: var(--sb-primary-light);
+  }
+
+  .ease-sb:not([class*="ease-sb--dark"]):not([class*="ease-sb--gradient"]):not([class*="ease-sb--glass"]):not([class*="ease-sb--light"]) .ease-sb-profile {
+    background-color: var(--sb-dark-profile-bg);
+  }
+
+  .ease-sb:not([class*="ease-sb--dark"]):not([class*="ease-sb--gradient"]):not([class*="ease-sb--glass"]):not([class*="ease-sb--light"]) .ease-sb-divider {
+    background-color: var(--sb-dark-border);
+  }
+
+  .ease-sb:not([class*="ease-sb--dark"]):not([class*="ease-sb--gradient"]):not([class*="ease-sb--glass"]):not([class*="ease-sb--light"]) .ease-sb-footer {
+    border-top-color: var(--sb-dark-border);
+  }
+}
+
+/* ── Reduced Motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ease-sb,
+  .ease-sb-item,
+  .ease-sb-toggle,
+  .ease-sb-overlay,
+  .ease-sb-brand,
+  .ease-sb-profile-info,
+  .ease-sb-item-label,
+  .ease-sb-badge,
+  .ease-sb-section-title {
+    transition: none !important;
+    animation: none !important;
+  }
+}

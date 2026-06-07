@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ease Sidebar Component — EaseMotion CSS</title>
+  <meta name="description" content="Modern sidebar navigation component with 10 variants for dashboards, admin panels, and SaaS applications. Built with EaseMotion CSS." />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Component Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── Demo Page Shell ──────────────────────────────────────────────────── */
+    :root {
+      --demo-bg: #f0f2f5;
+      --demo-text: #0f172a;
+      --demo-card-bg: #ffffff;
+      --demo-border: #e2e8f0;
+      --demo-muted: #64748b;
+      --demo-primary: #6c63ff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--demo-bg);
+      color: var(--demo-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Top Navigation ─────────────────────────────────────────────────── */
+    .demo-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--demo-card-bg);
+      border-bottom: 1px solid var(--demo-border);
+      position: sticky;
+      top: 0;
+      z-index: 800;
+      backdrop-filter: blur(12px);
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+
+    .demo-topbar-logo {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      background: linear-gradient(135deg, #6c63ff, #ff85a2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .demo-topbar-badge {
+      background: rgba(108, 99, 255, 0.1);
+      color: #6c63ff;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 700;
+      -webkit-text-fill-color: #6c63ff;
+    }
+
+    .demo-topbar-link {
+      color: var(--demo-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 200ms ease;
+    }
+
+    .demo-topbar-link:hover { color: var(--demo-primary); }
+
+    /* ── Page Layout ────────────────────────────────────────────────────── */
+    .demo-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem 6rem;
+    }
+
+    .demo-hero {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .demo-hero h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.75rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #1e293b, #475569);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .demo-hero p {
+      color: var(--demo-muted);
+      font-size: 1.1rem;
+      max-width: 620px;
+      margin: 0 auto 2rem;
+    }
+
+    .demo-feature-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .demo-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: var(--demo-card-bg);
+      border: 1px solid var(--demo-border);
+      border-radius: 9999px;
+      color: var(--demo-muted);
+    }
+
+    .demo-pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--demo-primary);
+    }
+
+    /* ── Section Title ──────────────────────────────────────────────────── */
+    .demo-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .demo-section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .demo-section-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 0.5rem;
+      background: linear-gradient(135deg, #6c63ff, #8b83ff);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .demo-section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--demo-text);
+    }
+
+    .demo-section-desc {
+      color: var(--demo-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── Demo Showcase Wrapper ──────────────────────────────────────────── */
+    .demo-showcase {
+      background: var(--demo-card-bg);
+      border: 1px solid var(--demo-border);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+    }
+
+    .demo-showcase-inner {
+      display: flex;
+      height: 480px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Glassmorphism showcase needs a visual background */
+    .demo-showcase-inner.demo-bg-glass {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    }
+
+    .demo-showcase-inner.demo-bg-gradient {
+      background: linear-gradient(135deg, #1a1040 0%, #0f0f2e 100%);
+    }
+
+    /* Mock main content area next to sidebar */
+    .demo-main-mock {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 2rem;
+      color: var(--demo-muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .demo-main-mock-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 0.75rem;
+      background-color: var(--demo-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .demo-main-mock-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--demo-muted);
+      stroke-width: 1.5;
+      fill: none;
+    }
+
+    .demo-bg-glass .demo-main-mock,
+    .demo-bg-gradient .demo-main-mock {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .demo-bg-glass .demo-main-mock-icon,
+    .demo-bg-gradient .demo-main-mock-icon {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .demo-bg-glass .demo-main-mock-icon svg,
+    .demo-bg-gradient .demo-main-mock-icon svg {
+      stroke: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ── Action Buttons ─────────────────────────────────────────────────── */
+    .demo-controls {
+      display: flex;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-top: 1px solid var(--demo-border);
+      flex-wrap: wrap;
+    }
+
+    .demo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid var(--demo-border);
+      border-radius: 0.5rem;
+      background-color: var(--demo-card-bg);
+      color: var(--demo-text);
+      cursor: pointer;
+      transition: background-color 200ms ease, border-color 200ms ease, transform 150ms ease;
+    }
+
+    .demo-btn:hover {
+      background-color: var(--demo-bg);
+      transform: translateY(-1px);
+    }
+
+    .demo-btn:active { transform: scale(0.97); }
+
+    .demo-btn--primary {
+      background-color: var(--demo-primary);
+      border-color: var(--demo-primary);
+      color: #ffffff;
+    }
+
+    .demo-btn--primary:hover {
+      background-color: #5b54e0;
+      border-color: #5b54e0;
+    }
+
+    /* ── Variant Grid ───────────────────────────────────────────────────── */
+    .demo-variant-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .demo-variant-card {
+      background: var(--demo-card-bg);
+      border: 1px solid var(--demo-border);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+    }
+
+    .demo-variant-card:hover {
+      border-color: var(--demo-primary);
+      box-shadow: 0 4px 12px rgba(108, 99, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .demo-variant-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .demo-variant-card p {
+      font-size: 0.8rem;
+      color: var(--demo-muted);
+      line-height: 1.5;
+    }
+
+    .demo-variant-label {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--demo-primary);
+      background: rgba(108, 99, 255, 0.08);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────────────────── */
+    .demo-footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--demo-border);
+      color: var(--demo-muted);
+      font-size: 0.8rem;
+    }
+
+    /* ── Responsive ─────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .demo-hero h1 { font-size: 2rem; }
+      .demo-page { padding: 2rem 1rem 4rem; }
+      .demo-showcase-inner { height: 420px; }
+      .demo-variant-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       TOP NAVIGATION BAR
+       ══════════════════════════════════════════════════════════════════════ -->
+  <nav class="demo-topbar" id="demo-topbar">
+    <div class="demo-topbar-logo">
+      EaseMotion CSS <span class="demo-topbar-badge">Sidebar</span>
+    </div>
+    <a href="https://github.com/SAPTARSHI-coder/EaseMotion-css" class="demo-topbar-link">GitHub Repo</a>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       MAIN CONTENT
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="demo-page">
+
+    <!-- Hero Section -->
+    <div class="demo-hero">
+      <h1>Sidebar Navigation Component</h1>
+      <p>A comprehensive, animation-driven sidebar system for dashboards, admin panels, and modern SaaS applications. 10 variants, fully responsive, zero dependencies.</p>
+      <div class="demo-feature-pills">
+        <span class="demo-pill"><span class="demo-pill-dot"></span>Smooth Animations</span>
+        <span class="demo-pill"><span class="demo-pill-dot"></span>10 Variants</span>
+        <span class="demo-pill"><span class="demo-pill-dot"></span>Responsive</span>
+        <span class="demo-pill"><span class="demo-pill-dot"></span>CSS Variables</span>
+        <span class="demo-pill"><span class="demo-pill-dot"></span>No JS Required</span>
+        <span class="demo-pill"><span class="demo-pill-dot"></span>Reduced Motion</span>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         SECTION 1 — Default Sidebar
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="demo-section" id="section-default">
+      <div class="demo-section-header">
+        <span class="demo-section-number">1</span>
+        <h2 class="demo-section-title">Default Sidebar</h2>
+      </div>
+      <p class="demo-section-desc">Clean, professional sidebar with navigation links, icons, active state highlighting, profile section, and dividers.</p>
+      <div class="demo-showcase">
+        <div class="demo-showcase-inner">
+          <!-- Default Sidebar -->
+          <aside class="ease-sb" id="sidebar-default">
+            <div class="ease-sb-header">
+              <div class="ease-sb-logo">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon></svg>
+              </div>
+              <div class="ease-sb-brand">
+                <span class="ease-sb-brand-name">Acme App</span>
+                <span class="ease-sb-brand-tag">Dashboard v2.0</span>
+              </div>
+            </div>
+            <div class="ease-sb-profile">
+              <div class="ease-sb-avatar">JD</div>
+              <div class="ease-sb-profile-info">
+                <span class="ease-sb-profile-name">Jane Doe</span>
+                <span class="ease-sb-profile-role">Product Designer</span>
+              </div>
+            </div>
+            <nav class="ease-sb-nav">
+              <span class="ease-sb-section-title">Main</span>
+              <a href="#" class="ease-sb-item active" data-tooltip="Dashboard">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg></span>
+                <span class="ease-sb-item-label">Dashboard</span>
+                <span class="ease-sb-badge">3</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Analytics">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></span>
+                <span class="ease-sb-item-label">Analytics</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Projects">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></span>
+                <span class="ease-sb-item-label">Projects</span>
+                <span class="ease-sb-badge">12</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Messages">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span>
+                <span class="ease-sb-item-label">Messages</span>
+              </a>
+              <hr class="ease-sb-divider" />
+              <span class="ease-sb-section-title">Account</span>
+              <a href="#" class="ease-sb-item" data-tooltip="Settings">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
+                <span class="ease-sb-item-label">Settings</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Log Out">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></span>
+                <span class="ease-sb-item-label">Log Out</span>
+              </a>
+            </nav>
+          </aside>
+          <div class="demo-main-mock">
+            <div class="demo-main-mock-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            </div>
+            <span>Main Content Area</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         SECTION 2 — Collapsible Sidebar
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="demo-section" id="section-collapsible">
+      <div class="demo-section-header">
+        <span class="demo-section-number">2</span>
+        <h2 class="demo-section-title">Collapsible Sidebar</h2>
+      </div>
+      <p class="demo-section-desc">Expands and collapses with smooth width animation. Labels, badges, and profile info fade out when collapsed.</p>
+      <div class="demo-showcase">
+        <div class="demo-showcase-inner">
+          <aside class="ease-sb" id="sidebar-collapsible">
+            <div class="ease-sb-header">
+              <div class="ease-sb-logo">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon></svg>
+              </div>
+              <div class="ease-sb-brand">
+                <span class="ease-sb-brand-name">Acme App</span>
+                <span class="ease-sb-brand-tag">Dashboard v2.0</span>
+              </div>
+            </div>
+            <nav class="ease-sb-nav">
+              <span class="ease-sb-section-title">Navigation</span>
+              <a href="#" class="ease-sb-item active" data-tooltip="Dashboard">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg></span>
+                <span class="ease-sb-item-label">Dashboard</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Analytics">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></span>
+                <span class="ease-sb-item-label">Analytics</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Team">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+                <span class="ease-sb-item-label">Team</span>
+                <span class="ease-sb-badge">5</span>
+              </a>
+              <hr class="ease-sb-divider" />
+              <a href="#" class="ease-sb-item" data-tooltip="Settings">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
+                <span class="ease-sb-item-label">Settings</span>
+              </a>
+            </nav>
+          </aside>
+          <div class="demo-main-mock">
+            <div class="demo-main-mock-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            </div>
+            <span>Click toggle to collapse/expand</span>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn demo-btn--primary" id="btn-collapse-toggle" onclick="toggleCollapse()">Toggle Collapse</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         SECTION 3 — Icon-Only Sidebar
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="demo-section" id="section-icon-only">
+      <div class="demo-section-header">
+        <span class="demo-section-number">3</span>
+        <h2 class="demo-section-title">Icon-Only Sidebar</h2>
+      </div>
+      <p class="demo-section-desc">Compact icon-only mode with hover tooltips. Labels are hidden, only icons remain visible.</p>
+      <div class="demo-showcase">
+        <div class="demo-showcase-inner">
+          <aside class="ease-sb ease-sb--icon-only" id="sidebar-icon-only">
+            <div class="ease-sb-header">
+              <div class="ease-sb-logo">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon></svg>
+              </div>
+            </div>
+            <div class="ease-sb-profile">
+              <div class="ease-sb-avatar">JD</div>
+            </div>
+            <nav class="ease-sb-nav">
+              <a href="#" class="ease-sb-item active" data-tooltip="Dashboard">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg></span>
+                <span class="ease-sb-item-label">Dashboard</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Analytics">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></span>
+                <span class="ease-sb-item-label">Analytics</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Projects">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></span>
+                <span class="ease-sb-item-label">Projects</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Messages">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span>
+                <span class="ease-sb-item-label">Messages</span>
+              </a>
+              <hr class="ease-sb-divider" />
+              <a href="#" class="ease-sb-item" data-tooltip="Settings">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
+                <span class="ease-sb-item-label">Settings</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Log Out">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></span>
+                <span class="ease-sb-item-label">Log Out</span>
+              </a>
+            </nav>
+          </aside>
+          <div class="demo-main-mock">
+            <div class="demo-main-mock-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            </div>
+            <span>Hover icons to see tooltips</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         SECTION 4 — Theme Variants Grid
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="demo-section" id="section-themes">
+      <div class="demo-section-header">
+        <span class="demo-section-number">4</span>
+        <h2 class="demo-section-title">Theme Variants</h2>
+      </div>
+      <p class="demo-section-desc">Dark, Light, Gradient, and Glassmorphism themes — each with its own visual personality.</p>
+
+      <!-- Dark Sidebar -->
+      <div class="demo-showcase" style="margin-bottom: 1.5rem;">
+        <div class="demo-showcase-inner">
+          <aside class="ease-sb ease-sb--dark" id="sidebar-dark">
+            <div class="ease-sb-header">
+              <div class="ease-sb-logo">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon></svg>
+              </div>
+              <div class="ease-sb-brand">
+                <span class="ease-sb-brand-name">Dark Panel</span>
+                <span class="ease-sb-brand-tag">Admin Console</span>
+              </div>
+            </div>
+            <div class="ease-sb-profile">
+              <div class="ease-sb-avatar">AK</div>
+              <div class="ease-sb-profile-info">
+                <span class="ease-sb-profile-name">Alex Kim</span>
+                <span class="ease-sb-profile-role">Admin</span>
+              </div>
+            </div>
+            <nav class="ease-sb-nav">
+              <span class="ease-sb-section-title">Menu</span>
+              <a href="#" class="ease-sb-item active" data-tooltip="Overview">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg></span>
+                <span class="ease-sb-item-label">Overview</span>
+                <span class="ease-sb-badge">7</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Users">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg></span>
+                <span class="ease-sb-item-label">Users</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Reports">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg></span>
+                <span class="ease-sb-item-label">Reports</span>
+              </a>
+              <hr class="ease-sb-divider" />
+              <a href="#" class="ease-sb-item" data-tooltip="Security">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>
+                <span class="ease-sb-item-label">Security</span>
+              </a>
+            </nav>
+          </aside>
+          <div class="demo-main-mock">
+            <div class="demo-main-mock-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </div>
+            <span>Dark Theme — ease-sb--dark</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Light Sidebar -->
+      <div class="demo-showcase" style="margin-bottom: 1.5rem;">
+        <div class="demo-showcase-inner">
+          <aside class="ease-sb ease-sb--light" id="sidebar-light">
+            <div class="ease-sb-header">
+              <div class="ease-sb-logo">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon></svg>
+              </div>
+              <div class="ease-sb-brand">
+                <span class="ease-sb-brand-name">Light Panel</span>
+                <span class="ease-sb-brand-tag">Clean Layout</span>
+              </div>
+            </div>
+            <nav class="ease-sb-nav">
+              <span class="ease-sb-section-title">Navigation</span>
+              <a href="#" class="ease-sb-item active" data-tooltip="Home">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></span>
+                <span class="ease-sb-item-label">Home</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Explore">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+                <span class="ease-sb-item-label">Explore</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Notifications">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></span>
+                <span class="ease-sb-item-label">Notifications</span>
+              </a>
+            </nav>
+          </aside>
+          <div class="demo-main-mock">
+            <div class="demo-main-mock-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </div>
+            <span>Light Theme — ease-sb--light</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gradient Sidebar -->
+      <div class="demo-showcase" style="margin-bottom: 1.5rem;">
+        <div class="demo-showcase-inner demo-bg-gradient">
+          <aside class="ease-sb ease-sb--gradient" id="sidebar-gradient">
+            <div class="ease-sb-header">
+              <div class="ease-sb-logo">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon></svg>
+              </div>
+              <div class="ease-sb-brand">
+                <span class="ease-sb-brand-name">Gradient</span>
+                <span class="ease-sb-brand-tag">Creative Studio</span>
+              </div>
+            </div>
+            <nav class="ease-sb-nav">
+              <span class="ease-sb-section-title">Create</span>
+              <a href="#" class="ease-sb-item active" data-tooltip="Canvas">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg></span>
+                <span class="ease-sb-item-label">Canvas</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Templates">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></span>
+                <span class="ease-sb-item-label">Templates</span>
+                <span class="ease-sb-badge">New</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Assets">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></span>
+                <span class="ease-sb-item-label">Assets</span>
+              </a>
+              <hr class="ease-sb-divider" />
+              <a href="#" class="ease-sb-item" data-tooltip="Brand Kit">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="2.5"></circle><path d="M17.5 21.5L13.5 9l-4 12.5"></path><line x1="5.5" y1="17" x2="21.5" y2="17"></line></svg></span>
+                <span class="ease-sb-item-label">Brand Kit</span>
+              </a>
+            </nav>
+          </aside>
+          <div class="demo-main-mock">
+            <div class="demo-main-mock-icon">
+              <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </div>
+            <span>Gradient Theme — ease-sb--gradient</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Glassmorphism Sidebar -->
+      <div class="demo-showcase">
+        <div class="demo-showcase-inner demo-bg-glass">
+          <aside class="ease-sb ease-sb--glass" id="sidebar-glass">
+            <div class="ease-sb-header">
+              <div class="ease-sb-logo">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon></svg>
+              </div>
+              <div class="ease-sb-brand">
+                <span class="ease-sb-brand-name">Glassmorph</span>
+                <span class="ease-sb-brand-tag">Design System</span>
+              </div>
+            </div>
+            <nav class="ease-sb-nav">
+              <span class="ease-sb-section-title">Workspace</span>
+              <a href="#" class="ease-sb-item active" data-tooltip="Boards">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg></span>
+                <span class="ease-sb-item-label">Boards</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Timeline">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
+                <span class="ease-sb-item-label">Timeline</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Files">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg></span>
+                <span class="ease-sb-item-label">Files</span>
+              </a>
+              <hr class="ease-sb-divider" />
+              <a href="#" class="ease-sb-item" data-tooltip="Integrations">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>
+                <span class="ease-sb-item-label">Integrations</span>
+              </a>
+            </nav>
+          </aside>
+          <div class="demo-main-mock">
+            <div class="demo-main-mock-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+            </div>
+            <span>Glassmorphism — ease-sb--glass</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         SECTION 5 — Floating Sidebar
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="demo-section" id="section-floating">
+      <div class="demo-section-header">
+        <span class="demo-section-number">5</span>
+        <h2 class="demo-section-title">Floating Sidebar</h2>
+      </div>
+      <p class="demo-section-desc">Detached from the edge with rounded corners and an elevated shadow — a premium layout style.</p>
+      <div class="demo-showcase">
+        <div class="demo-showcase-inner" style="padding: 0; background: #f0f2f5;">
+          <aside class="ease-sb ease-sb--floating ease-sb--dark" id="sidebar-floating" style="position: relative;">
+            <div class="ease-sb-header">
+              <div class="ease-sb-logo">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon></svg>
+              </div>
+              <div class="ease-sb-brand">
+                <span class="ease-sb-brand-name">Floating</span>
+                <span class="ease-sb-brand-tag">Premium Style</span>
+              </div>
+            </div>
+            <nav class="ease-sb-nav">
+              <span class="ease-sb-section-title">Main</span>
+              <a href="#" class="ease-sb-item active" data-tooltip="Dashboard">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg></span>
+                <span class="ease-sb-item-label">Dashboard</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Inbox">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg></span>
+                <span class="ease-sb-item-label">Inbox</span>
+                <span class="ease-sb-badge">24</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Calendar">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+                <span class="ease-sb-item-label">Calendar</span>
+              </a>
+            </nav>
+          </aside>
+          <div class="demo-main-mock">
+            <div class="demo-main-mock-icon" style="background-color: #e2e8f0;">
+              <svg viewBox="0 0 24 24" style="stroke: #64748b;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            </div>
+            <span style="color: #64748b;">Floating + Dark — ease-sb--floating</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         SECTION 6 — Fixed Sidebar
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="demo-section" id="section-fixed">
+      <div class="demo-section-header">
+        <span class="demo-section-number">6</span>
+        <h2 class="demo-section-title">Fixed Sidebar</h2>
+      </div>
+      <p class="demo-section-desc">Pinned to the left viewport edge. Scroll the mock content to see it stay in place.</p>
+      <div class="demo-showcase">
+        <div class="demo-showcase-inner" style="padding: 0; background: #f0f2f5;">
+          <aside class="ease-sb ease-sb--fixed" id="sidebar-fixed">
+            <div class="ease-sb-header">
+              <div class="ease-sb-logo">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon></svg>
+              </div>
+              <div class="ease-sb-brand">
+                <span class="ease-sb-brand-name">Fixed</span>
+                <span class="ease-sb-brand-tag">Always Visible</span>
+              </div>
+            </div>
+
+            <div class="ease-sb-profile">
+              <div class="ease-sb-avatar">UI</div>
+              <div class="ease-sb-profile-info">
+                <span class="ease-sb-profile-name">User Interface</span>
+                <span class="ease-sb-profile-role">Workspace</span>
+              </div>
+            </div>
+
+            <nav class="ease-sb-nav">
+              <span class="ease-sb-section-title">Pinned Menu</span>
+              <a href="#" class="ease-sb-item active" data-tooltip="Overview">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg></span>
+                <span class="ease-sb-item-label">Overview</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Billing">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M12 1v22"></path><rect x="5" y="5" width="14" height="14" rx="2"></rect></svg></span>
+                <span class="ease-sb-item-label">Billing</span>
+                <span class="ease-sb-badge">2</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Integrations">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>
+                <span class="ease-sb-item-label">Integrations</span>
+              </a>
+              <hr class="ease-sb-divider" />
+              <a href="#" class="ease-sb-item" data-tooltip="Settings">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
+                <span class="ease-sb-item-label">Settings</span>
+              </a>
+            </nav>
+          </aside>
+
+          <div class="demo-main-mock" style="width: 100%; padding-left: 310px;">
+            <div class="demo-main-mock-icon">
+              <svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"></rect><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="14" y2="14"></line></svg>
+            </div>
+            <span style="max-width: 540px;">Scroll inside this showcase area conceptually: the sidebar is fixed using <code>ease-sb--fixed</code>.</span>
+
+            <div style="height: 260px;"></div>
+            <span style="opacity: 0.8;">Extra mock spacing to emphasize fixed positioning on scroll.</span>
+            <div style="height: 220px;"></div>
+            <span style="opacity: 0.7;">End of content area.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         SECTION 7 — Mobile Off-Canvas Sidebar
+
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="demo-section" id="section-mobile">
+
+      <div class="demo-section-header">
+        <span class="demo-section-number">6</span>
+        <h2 class="demo-section-title">Mobile Off-Canvas Sidebar</h2>
+      </div>
+      <p class="demo-section-desc">Slides in from the left with a blurred backdrop overlay. Use the hamburger button to toggle visibility.</p>
+      <div class="demo-showcase">
+        <div class="demo-showcase-inner" id="mobile-demo-container" style="position: relative; overflow: hidden;">
+          <!-- Overlay -->
+          <div class="ease-sb-overlay" id="mobile-overlay" style="position: absolute;"></div>
+          <!-- Off-canvas sidebar -->
+          <aside class="ease-sb ease-sb--offcanvas ease-sb--dark" id="sidebar-mobile" style="position: absolute; height: 100%;">
+            <div class="ease-sb-header">
+              <div class="ease-sb-logo">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon></svg>
+              </div>
+              <div class="ease-sb-brand">
+                <span class="ease-sb-brand-name">Mobile Nav</span>
+                <span class="ease-sb-brand-tag">Off-Canvas</span>
+              </div>
+            </div>
+            <div class="ease-sb-profile">
+              <div class="ease-sb-avatar">JD</div>
+              <div class="ease-sb-profile-info">
+                <span class="ease-sb-profile-name">Jane Doe</span>
+                <span class="ease-sb-profile-role">Designer</span>
+              </div>
+            </div>
+            <nav class="ease-sb-nav">
+              <a href="#" class="ease-sb-item active" data-tooltip="Home">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></span>
+                <span class="ease-sb-item-label">Home</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Search">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+                <span class="ease-sb-item-label">Search</span>
+              </a>
+              <a href="#" class="ease-sb-item" data-tooltip="Favorites">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></span>
+                <span class="ease-sb-item-label">Favorites</span>
+              </a>
+              <hr class="ease-sb-divider" />
+              <a href="#" class="ease-sb-item" data-tooltip="Profile">
+                <span class="ease-sb-item-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
+                <span class="ease-sb-item-label">Profile</span>
+              </a>
+            </nav>
+          </aside>
+          <div class="demo-main-mock" style="width: 100%;">
+            <div class="demo-main-mock-icon">
+              <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </div>
+            <span>Click the button below to toggle</span>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn demo-btn--primary" id="btn-mobile-toggle" onclick="toggleMobile()">☰ Toggle Off-Canvas</button>
+          <button class="demo-btn" onclick="closeMobile()">✕ Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         SECTION 7 — All Variants Reference
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="demo-section" id="section-reference">
+      <div class="demo-section-header">
+        <span class="demo-section-number">7</span>
+        <h2 class="demo-section-title">All Variants Reference</h2>
+      </div>
+      <p class="demo-section-desc">Quick reference cards for every sidebar variant and its CSS class.</p>
+      <div class="demo-variant-grid">
+        <div class="demo-variant-card" onclick="scrollToSection('section-default')">
+          <span class="demo-variant-label">Default</span>
+          <h3>Default Sidebar</h3>
+          <p>Clean base sidebar with nav links, icons, badges, profile section, and active state indicators.</p>
+        </div>
+        <div class="demo-variant-card" onclick="scrollToSection('section-collapsible')">
+          <span class="demo-variant-label">ease-sb--collapsed</span>
+          <h3>Collapsible Sidebar</h3>
+          <p>Smooth width transition to icon-only mode. Labels and badges fade out gracefully.</p>
+        </div>
+        <div class="demo-variant-card" onclick="scrollToSection('section-icon-only')">
+          <span class="demo-variant-label">ease-sb--icon-only</span>
+          <h3>Icon-Only Sidebar</h3>
+          <p>Permanently compact with tooltip hints on hover via data-tooltip attribute.</p>
+        </div>
+        <div class="demo-variant-card" onclick="scrollToSection('section-themes')">
+          <span class="demo-variant-label">ease-sb--dark</span>
+          <h3>Dark Sidebar</h3>
+          <p>Deep dark background with high-contrast text and muted icon colors.</p>
+        </div>
+        <div class="demo-variant-card" onclick="scrollToSection('section-themes')">
+          <span class="demo-variant-label">ease-sb--light</span>
+          <h3>Light Sidebar</h3>
+          <p>Explicit clean white theme override with subtle borders and hover states.</p>
+        </div>
+        <div class="demo-variant-card" onclick="scrollToSection('section-themes')">
+          <span class="demo-variant-label">ease-sb--gradient</span>
+          <h3>Gradient Sidebar</h3>
+          <p>Rich purple-to-deep gradient background for creative applications.</p>
+        </div>
+        <div class="demo-variant-card" onclick="scrollToSection('section-themes')">
+          <span class="demo-variant-label">ease-sb--glass</span>
+          <h3>Glassmorphism Sidebar</h3>
+          <p>Frosted glass effect with backdrop-filter blur and semi-transparent layers.</p>
+        </div>
+        <div class="demo-variant-card" onclick="scrollToSection('section-default')">
+          <span class="demo-variant-label">ease-sb--fixed</span>
+          <h3>Fixed Sidebar</h3>
+          <p>Position: fixed — stays pinned to the left viewport edge on scroll.</p>
+        </div>
+        <div class="demo-variant-card" onclick="scrollToSection('section-floating')">
+          <span class="demo-variant-label">ease-sb--floating</span>
+          <h3>Floating Sidebar</h3>
+          <p>Elevated with margin, border-radius, and dramatic floating shadow.</p>
+        </div>
+        <div class="demo-variant-card" onclick="scrollToSection('section-mobile')">
+          <span class="demo-variant-label">ease-sb--offcanvas</span>
+          <h3>Mobile Off-Canvas</h3>
+          <p>Slides in from left with a blurred overlay backdrop. Toggle via JS class.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Footer ──────────────────────────────────────────────────────── -->
+    <div class="demo-footer">
+      <p>Submitted under EaseMotion CSS project requirements. No external libraries used.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       JAVASCRIPT CONTROLLERS
+       ══════════════════════════════════════════════════════════════════════ -->
+  <script>
+    // ── Collapsible Toggle ───────────────────────────────────────────────
+    function toggleCollapse() {
+      const sidebar = document.getElementById('sidebar-collapsible');
+      sidebar.classList.toggle('ease-sb--collapsed');
+    }
+
+    // ── Mobile Off-Canvas Toggle ─────────────────────────────────────────
+    function toggleMobile() {
+      const sidebar = document.getElementById('sidebar-mobile');
+      const overlay = document.getElementById('mobile-overlay');
+      const isOpen = sidebar.classList.contains('ease-sb--open');
+      
+      if (isOpen) {
+        closeMobile();
+      } else {
+        sidebar.classList.add('ease-sb--open');
+        overlay.classList.add('ease-sb-overlay--open');
+      }
+    }
+
+    function closeMobile() {
+      const sidebar = document.getElementById('sidebar-mobile');
+      const overlay = document.getElementById('mobile-overlay');
+      sidebar.classList.remove('ease-sb--open');
+      overlay.classList.remove('ease-sb-overlay--open');
+    }
+
+    // Close mobile sidebar on overlay click
+    document.getElementById('mobile-overlay').addEventListener('click', closeMobile);
+
+    // ── Active Item Toggle ───────────────────────────────────────────────
+    document.querySelectorAll('.ease-sb-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Find parent sidebar
+        const sidebar = item.closest('.ease-sb');
+        if (sidebar) {
+          sidebar.querySelectorAll('.ease-sb-item').forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // ── Smooth Scroll to Section ─────────────────────────────────────────
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  </script>
+
+</body>
+</html>
